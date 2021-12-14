@@ -41,7 +41,7 @@ function generateComputerMove() {
 // Recogemos el value de la jugada de la usuaria y pintamos el resultado parcial comparando lajugada de la usuaria y la de la computadora
 
 function comparePlays() {
-	let playerMove = playerSelect.value;
+	playerMove = playerSelect.value;
 	console.log(`el movimiento del jugador es ${playerMove}`);
 
 	console.log(partialResult.innerHTML);
@@ -68,7 +68,7 @@ function comparePlays() {
 	} else if (playerMove === "tijera") {
 		if (computerMove === "papel") {
 			partialResult.innerHTML = "La usuaria gana";
-			playerrResult++;
+			playerResult++;
 		}
 		if (computerMove === "piedra") {
 			partialResult.innerHTML = "La usuaria pierde";
