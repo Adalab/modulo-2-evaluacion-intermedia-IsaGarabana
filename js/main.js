@@ -4,7 +4,7 @@
 const playButton = document.querySelector(".js_button");
 const gameSelect = document.querySelector(".js_playerSelect");
 const partialResult = document.querySelector(".js_partial");
-const computerMove = "";
+let computerMove = "";
 
 // 2. Funciones
 
@@ -22,7 +22,7 @@ function generateRandom() {
 
 //Asignamos una jugada al número aleatorio
 function generateComputerMove() {
-	const randomNum = generateRandom();
+	let randomNum = generateRandom();
 	if (randomNum >= 1 && randomNum <= 3) {
 		computerMove = "piedra";
 	} else if (randomNum >= 4 && randomNum <= 6) {
@@ -30,10 +30,11 @@ function generateComputerMove() {
 	} else if (randomNum >= 7 && randomNum <= 9) {
 		computerMove = "tijera";
 	}
+	console.log(computerMove);
 	return computerMove;
 }
-console.log(computerMove);
-// Reocgemos el value de la jugada de la usuaria
+
+// Recogemos el value de la jugada de la usuaria
 const playerMove = gameSelect.value;
 
 // Pintamos el resultado parcial comparando lajugada de la usuaria y la de la computadora
@@ -49,6 +50,7 @@ function comparePlays() {
 function handleClickAJugar(event) {
 	event.preventDefault();
 	generateComputerMove();
+	comparePlays();
 }
 
 // 3. Código que se ejecuta cuando se carga la página (listeners)
