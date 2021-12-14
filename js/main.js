@@ -8,8 +8,9 @@ const playerScore = document.querySelector(".js_playerResult");
 const computerScore = document.querySelector(".js_computerResult");
 let computerMove = "";
 let playerMove = "";
-let playerResult = "";
-let computerResult = "";
+
+let playerResult = 0;
+let computerResult = 0;
 // 2. Funciones
 
 //Generamos número aleatorio
@@ -39,22 +40,20 @@ function generateComputerMove() {
 
 // Recogemos el value de la jugada de la usuaria
 
-console.log(playerMove);
-
 // Pintamos el resultado parcial comparando lajugada de la usuaria y la de la computadora
 
 function comparePlays() {
 	playerMove = playerSelect.value;
 	console.log(`el movimiento del jugador es ${playerMove}`);
 
-	// const computerMove = generateComputerMove();
-
 	switch (playerMove === "piedra") {
 		case computerMove === "papel":
 			partialResult.innerHTML = "Has perdido";
+			computerResult++;
 			break;
 		case computerMove === "tijera":
 			partialResult.innerHTML = "Has ganado";
+			playerResult++;
 			break;
 		case computerMove === "piedra":
 			partialResult.innerHTML = "Empate";
@@ -63,9 +62,11 @@ function comparePlays() {
 	switch (playerMove === "papel") {
 		case computerMove === "piedra":
 			partialResult.innerHTML = "Has ganado";
+			playerResult++;
 			break;
 		case computerMove === "tijera":
 			partialResult.innerHTML = "Has perdido";
+			computerResult++;
 			break;
 		case computerMove === "papel":
 			partialResult.innerHTML = "Empate";
@@ -74,9 +75,11 @@ function comparePlays() {
 	switch (playerMove === "tijera") {
 		case computerMove === "piedra":
 			partialResult.innerHTML = "Has perdido";
+			computerResult++;
 			break;
 		case computerMove === "papel":
 			partialResult.innerHTML = "Has ganado";
+			playerResult++;
 			break;
 		case computerMove === "tijera":
 			partialResult.innerHTML = "Empate";
@@ -87,15 +90,10 @@ function comparePlays() {
 
 // funcion que suma puntos al marcador
 
-// function addScore() {
-// 	playerResult = playerScore.innerHTML;
-// 	computerResult = computerScore.innerHTML;
-// 	if (partialResult.innerHTML === "Has ganado") {
-// 		playerResult += parseInt(playerResult) + 1;
-// 	} else if (partialResult.innerHTML === "Has perdido") {
-// 		computerResult += parseInt(computerResult) + 1;
-// 	}
-// }
+function addScore() {
+	playerScore.innerHTML = playerResult;
+	computerScore.innerHTML = computerResult;
+}
 
 function handleClickAJugar(event) {
 	event.preventDefault();
