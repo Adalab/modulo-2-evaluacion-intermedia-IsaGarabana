@@ -44,7 +44,6 @@ function comparePlays() {
 	playerMove = playerSelect.value;
 	console.log(`el movimiento del jugador es ${playerMove}`);
 
-	console.log(partialResult.innerHTML);
 	if (playerMove === computerMove) {
 		partialResult.innerHTML = "Empate!";
 	} else if (playerMove === "piedra") {
@@ -59,7 +58,7 @@ function comparePlays() {
 	} else if (playerMove === "papel") {
 		if (computerMove === "piedra") {
 			partialResult.innerHTML = "La usuaria gana";
-			playerrResult++;
+			playerResult++;
 		}
 		if (computerMove === "tijera") {
 			partialResult.innerHTML = "La usuaria pierde";
@@ -75,6 +74,7 @@ function comparePlays() {
 			computerResult++;
 		}
 	}
+	console.log(partialResult.innerHTML);
 }
 
 // funcion que suma puntos al marcador
