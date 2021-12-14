@@ -44,46 +44,37 @@ function comparePlays() {
 	let playerMove = playerSelect.value;
 	console.log(`el movimiento del jugador es ${playerMove}`);
 
-	switch (playerMove === "piedra") {
-		case computerMove === "papel":
-			partialResult.innerHTML = "Has perdido";
-			computerResult++;
-			break;
-		case computerMove === "tijera":
-			partialResult.innerHTML = "Has ganado";
-			playerResult++;
-			break;
-		case computerMove === "piedra":
-			partialResult.innerHTML = "Empate";
-	}
-
-	switch (playerMove === "papel") {
-		case computerMove === "piedra":
-			partialResult.innerHTML = "Has ganado";
-			playerResult++;
-			break;
-		case computerMove === "tijera":
-			partialResult.innerHTML = "Has perdido";
-			computerResult++;
-			break;
-		case computerMove === "papel":
-			partialResult.innerHTML = "Empate";
-	}
-
-	switch (playerMove === "tijera") {
-		case computerMove === "piedra":
-			partialResult.innerHTML = "Has perdido";
-			computerResult++;
-			break;
-		case computerMove === "papel":
-			partialResult.innerHTML = "Has ganado";
-			playerResult++;
-			break;
-		case computerMove === "tijera":
-			partialResult.innerHTML = "Empate";
-	}
-
 	console.log(partialResult.innerHTML);
+	if (playerMove === computerMove) {
+		partialResult.innerHTML = "Empate!";
+	} else if (playerMove === "piedra") {
+		if (computerMove === "papel") {
+			partialResult.innerHTML = "La usuaria pierde";
+			computerResult++;
+		}
+		if (computerMove === "tijera") {
+			partialResult.innerHTML = "La usuaria gana";
+			playerResult++;
+		}
+	} else if (playerMove === "papel") {
+		if (computerMove === "piedra") {
+			partialResult.innerHTML = "La usuaria gana";
+			playerrResult++;
+		}
+		if (computerMove === "tijera") {
+			partialResult.innerHTML = "La usuaria pierde";
+			computerResult++;
+		}
+	} else if (playerMove === "tijera") {
+		if (computerMove === "papel") {
+			partialResult.innerHTML = "La usuaria gana";
+			playerrResult++;
+		}
+		if (computerMove === "piedra") {
+			partialResult.innerHTML = "La usuaria pierde";
+			computerResult++;
+		}
+	}
 }
 
 // funcion que suma puntos al marcador
