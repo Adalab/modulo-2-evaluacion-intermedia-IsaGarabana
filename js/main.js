@@ -53,7 +53,7 @@ function comparePlays() {
 			partialResult.innerHTML = "Has ganado";
 			playerResult++;
 			break;
-		case `${computerMove} === "piedra"`:
+		case computerMove === "piedra":
 			partialResult.innerHTML = "Empate";
 	}
 
