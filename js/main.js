@@ -2,10 +2,14 @@
 
 // 1. Variables globales: querySelector y datos de toda la página.
 const playButton = document.querySelector(".js_button");
-const gameSelect = document.querySelector(".js_playerSelect");
+const playerSelect = document.querySelector(".js_playerSelect");
 const partialResult = document.querySelector(".js_partial");
+const playerScore = document.querySelector(".js_playerResult");
+const computerScore = document.querySelector(".js_computerResult");
 let computerMove = "";
-
+let playerMove = "";
+let playerResult = playerScore.innerHTML;
+let computerResult = computerScore.innerHTML;
 // 2. Funciones
 
 //Generamos número aleatorio
@@ -16,7 +20,6 @@ function getRandom(max) {
 // Generar un número aleatorio máximo 9 y lo metemos en una constante
 function generateRandom() {
 	const randomNum = getRandom(9);
-	console.log(randomNum);
 	return randomNum;
 }
 
@@ -30,17 +33,20 @@ function generateComputerMove() {
 	} else if (randomNum >= 7 && randomNum <= 9) {
 		computerMove = "tijera";
 	}
-	console.log(computerMove);
+	console.log(`el movimiento del ordenador es ${computerMove}`);
 	return computerMove;
 }
 
 // Recogemos el value de la jugada de la usuaria
-const playerMove = gameSelect.value;
+
+console.log(playerMove);
 
 // Pintamos el resultado parcial comparando lajugada de la usuaria y la de la computadora
 
 function comparePlays() {
-	console.log(playerMove);
+	playerMove = playerSelect.value;
+	console.log(`el movimiento del jugador es ${playerMove}`);
+
 	const computerMove = generateComputerMove();
 	if (playerMove === computerMove) {
 		partialResult.innerHTML = "Empate";
@@ -68,11 +74,25 @@ function comparePlays() {
 		case computerMove === "papel":
 			partialResult.innerHTML = "Has ganado";
 	}
+
+	console.log(partialResult.innerHTML);
 }
+
+// funcion que suma puntos al marcador
+
+function addScore() {
+	if (partialResult.innerHTML === "Has ganado") {
+		playerResult += parseInt(playerResult) + 1;
+	} else if (partialResult.innerHTML === "Has perdido") {
+		computerResult += parseInt(computerResult) + 1;
+	}
+}
+
 function handleClickAJugar(event) {
 	event.preventDefault();
 	generateComputerMove();
 	comparePlays();
+	addScore();
 }
 
 // 3. Código que se ejecuta cuando se carga la página (listeners)
