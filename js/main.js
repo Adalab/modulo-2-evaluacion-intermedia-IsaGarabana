@@ -40,13 +40,35 @@ const playerMove = gameSelect.value;
 // Pintamos el resultado parcial comparando lajugada de la usuaria y la de la computadora
 
 function comparePlays() {
+	console.log(playerMove);
 	const computerMove = generateComputerMove();
-	console.log(comparePlays());
 	if (playerMove === computerMove) {
 		partialResult.innerHTML = "Empate";
 	}
-}
+	switch (playerMove === "piedra") {
+		case computerMove === "papel":
+			partialResult.innerHTML = "Has perdido";
+			break;
+		case computerMove === "tijera":
+			partialResult.innerHTML = "Has ganado";
+	}
 
+	switch (playerMove === "papel") {
+		case computerMove === "piedra":
+			partialResult.innerHTML = "Has ganado";
+			break;
+		case computerMove === "tijera":
+			partialResult.innerHTML = "Has perdido";
+	}
+
+	switch (playerMove === "tijera") {
+		case computerMove === "piedra":
+			partialResult.innerHTML = "Has perdido";
+			break;
+		case computerMove === "papel":
+			partialResult.innerHTML = "Has ganado";
+	}
+}
 function handleClickAJugar(event) {
 	event.preventDefault();
 	generateComputerMove();
