@@ -38,12 +38,10 @@ function generateComputerMove() {
 	return computerMove;
 }
 
-// Recogemos el value de la jugada de la usuaria
-
-// Pintamos el resultado parcial comparando lajugada de la usuaria y la de la computadora
+// Recogemos el value de la jugada de la usuaria y pintamos el resultado parcial comparando lajugada de la usuaria y la de la computadora
 
 function comparePlays() {
-	playerMove = playerSelect.value;
+	let playerMove = playerSelect.value;
 	console.log(`el movimiento del jugador es ${playerMove}`);
 
 	switch (playerMove === "piedra") {
@@ -55,7 +53,7 @@ function comparePlays() {
 			partialResult.innerHTML = "Has ganado";
 			playerResult++;
 			break;
-		case computerMove === "piedra":
+		case `${computerMove} === "piedra"`:
 			partialResult.innerHTML = "Empate";
 	}
 
