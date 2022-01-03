@@ -1,8 +1,8 @@
 "use strict";
 
 // 1. Variables globales: querySelector y datos de toda la página.
-const playButton = document.querySelector(".js_button");
-const playerSelect = document.querySelector(".js_playerSelect");
+const playBtn = document.querySelector(".js_button");
+const moveInput = document.querySelector(".js_moveInput");
 const partialResult = document.querySelector(".js_partial");
 const playerScore = document.querySelector(".js_playerResult");
 const computerScore = document.querySelector(".js_computerResult");
@@ -41,36 +41,36 @@ function generateComputerMove() {
 // Recogemos el value de la jugada de la usuaria y pintamos el resultado parcial comparando lajugada de la usuaria y la de la computadora
 
 function comparePlays() {
-	playerMove = playerSelect.value;
+	playerMove = moveInput.value;
 	console.log(`el movimiento del jugador es ${playerMove}`);
 
 	if (playerMove === computerMove) {
-		partialResult.innerHTML = "Empate!";
+		paintResult("Empate!");
 	} else if (playerMove === "piedra") {
 		if (computerMove === "papel") {
-			partialResult.innerHTML = "La usuaria pierde";
+			paintResult("La usuaria pierde");
 			computerResult++;
 		}
 		if (computerMove === "tijera") {
-			partialResult.innerHTML = "La usuaria gana";
+			paintResult("La usuaria gana");
 			playerResult++;
 		}
 	} else if (playerMove === "papel") {
 		if (computerMove === "piedra") {
-			partialResult.innerHTML = "La usuaria gana";
+			paintResult("La usuaria gana");
 			playerResult++;
 		}
 		if (computerMove === "tijera") {
-			partialResult.innerHTML = "La usuaria pierde";
+			paintResult("La usuaria pierde");
 			computerResult++;
 		}
 	} else if (playerMove === "tijera") {
 		if (computerMove === "papel") {
-			partialResult.innerHTML = "La usuaria gana";
+			paintResult("La usuaria gana");
 			playerResult++;
 		}
 		if (computerMove === "piedra") {
-			partialResult.innerHTML = "La usuaria pierde";
+			paintResult("La usuaria pierde");
 			computerResult++;
 		}
 	}
@@ -93,4 +93,10 @@ function handleClickAJugar(event) {
 
 // 3. Código que se ejecuta cuando se carga la página (listeners)
 
-playButton.addEventListener("click", handleClickAJugar);
+playBtn.addEventListener("click", handleClickAJugar);
+
+////Función que pinta los elementoa en el HTML
+
+function paintResult(result) {
+	partialResult.innerHTML = result;
+}
