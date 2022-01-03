@@ -1,105 +1,134 @@
 "use strict";
 
-// 1. Variables globales: querySelector y datos de toda la página.
+/////ELEMENTOS HTML/////
 const playButton = document.querySelector(".js_button");
 const playerSelect = document.querySelector(".js_playerSelect");
 const partialResult = document.querySelector(".js_partial");
-const playerScore = document.querySelector(".js_playerResult");
-const computerScore = document.querySelector(".js_computerResult");
+const playerResult = document.querySelector(".js_playerResult");
+const computerResult = document.querySelector(".js_computerResult");
+const resetButton = document.querySelector(".js_reset");
+
+/////VARIABLES GLOBALES/////
 let computerMove = "";
 let playerMove = "";
+let playerScore = 0;
+let computerScore = 0;
+let rounds = 0;
 
-let playerResult = 0;
-let computerResult = 0;
-// 2. Funciones
+/////FUNCIONES/////
 
-//Generamos número aleatorio
-function getRandom(max) {
+function getRandomNumber(max) {
 	return Math.ceil(Math.random() * max);
 }
+//generar jugada aleatoria del ordenador
 
-// Generar un número aleatorio máximo 9 y lo metemos en una constante
-function generateRandom() {
-	const randomNum = getRandom(9);
-	return randomNum;
-}
-
-//Asignamos una jugada al número aleatorio
 function generateComputerMove() {
-	let randomNum = generateRandom();
-	if (randomNum >= 1 && randomNum <= 3) {
+	const randomNum = getRandomNumber(9);
+
+	if (randomNum <= 3) {
 		computerMove = "piedra";
 	} else if (randomNum >= 4 && randomNum <= 6) {
 		computerMove = "papel";
-	} else if (randomNum >= 7 && randomNum <= 9) {
+	} else {
 		computerMove = "tijera";
 	}
-	console.log(`el movimiento del ordenador es ${computerMove}`);
-	return computerMove;
 }
 
-// Recogemos el value de la jugada de la usuaria y pintamos el resultado parcial comparando lajugada de la usuaria y la de la computadora
+// Obtenermos la jugada de la usuaria
+function getUserPlay() {
+	playerMove = playerSelect.value;
+}
+// // comparamos lajugada de la usuaria y la de la computadora
 
 function comparePlays() {
-	let playerMove = playerSelect.value;
+	getUserPlay(playerMove);
 	console.log(`el movimiento del jugador es ${playerMove}`);
+	generateComputerMove(computerMove);
+	console.log(`el movimiento del ordenador es ${computerMove}`);
 
-	switch (playerMove === "piedra") {
-		case computerMove === "papel":
+	if (playerMove === computerMove) {
+		//empate
+		partialResult.innerHTML = "Empate!";
+	} else if (playerMove === "piedra") {
+		if (computerMove === "papel") {
 			partialResult.innerHTML = "Has perdido";
-			computerResult++;
-			break;
-		case computerMove === "tijera":
+			computerScore++;
+		} else if (computerMove === "tijera") {
 			partialResult.innerHTML = "Has ganado";
-			playerResult++;
-			break;
-		case computerMove === "piedra":
-			partialResult.innerHTML = "Empate";
-	}
-
-	switch (playerMove === "papel") {
-		case computerMove === "piedra":
-			partialResult.innerHTML = "Has ganado";
-			playerResult++;
-			break;
-		case computerMove === "tijera":
+			playerScore++;
+		}
+	} else if (playerMove === "papel") {
+		if (computerMove === "tijera") {
 			partialResult.innerHTML = "Has perdido";
-			computerResult++;
-			break;
-		case computerMove === "papel":
-			partialResult.innerHTML = "Empate";
-	}
-
-	switch (playerMove === "tijera") {
-		case computerMove === "piedra":
-			partialResult.innerHTML = "Has perdido";
-			computerResult++;
-			break;
-		case computerMove === "papel":
+			computerScore++;
+		} else if (computerMove === "piedra") {
 			partialResult.innerHTML = "Has ganado";
-			playerResult++;
-			break;
-		case computerMove === "tijera":
-			partialResult.innerHTML = "Empate";
+			playerScore++;
+		}
+	} else if (playerMove === "tijera") {
+		if (computerMove === "papel") {
+			partialResult.innerHTML = "Has ganado";
+			playerScore++;
+		} else if (computerMove === "piedra") {
+			partialResult.innerHTML = "Has perdido";
+			computerScore++;
+		}
 	}
-
-	console.log(partialResult.innerHTML);
 }
 
-// funcion que suma puntos al marcador
+// // funcion que suma puntos al marcador
 
 function addScore() {
-	playerScore.innerHTML = playerResult;
-	computerScore.innerHTML = computerResult;
+	playerResult.innerHTML = playerScore;
+	computerResult.innerHTML = computerScore;
 }
 
+//función que suma rondas
+
+function addRounds() {
+	rounds++;
+}
+
+//función que pinta resultado final al llegar a 10 rondas
+function renderEndResult() {
+	if (rounds === 10) {
+		if (playerScore > computerScore) {
+			partialResult.innerHTML = "¡Has ganado el Juego!";
+		} else if (playerScore < computerScore) {
+			partialResult.innerHTML = "¡Has perdido el Juego!";
+		} else {
+			partialResult.innerHTML = "Empate!";
+		}
+		playButton.classList.add("hidden");
+		resetButton.classList.remove("hidden");
+	}
+}
+
+//función manejadora del botón jugar
 function handleClickAJugar(event) {
 	event.preventDefault();
-	generateComputerMove();
+	addRounds();
+	console.log(rounds);
 	comparePlays();
 	addScore();
+	renderEndResult();
 }
 
-// 3. Código que se ejecuta cuando se carga la página (listeners)
+//función que maneja el botón reiniciar juego
+
+function handleResetButton() {
+	playButton.classList.remove("hidden");
+	resetButton.classList.add("hidden");
+	playerScore = 0;
+	computerScore = 0;
+	rounds = 0;
+	playerResult.innerHTML = playerScore;
+	computerResult.innerHTML = computerScore;
+	partialResult.innerHTML = "Vamos a Jugar!";
+	playerSelect.value = "escoge un juego";
+}
+
+/////LISTENERS/////
 
 playButton.addEventListener("click", handleClickAJugar);
+resetButton.addEventListener("click", handleResetButton);
